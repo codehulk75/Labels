@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZebraSender", "ZebraSender\ZebraSender.csproj", "{749EC814-61E6-4E67-B564-CC5DB8113263}"
+EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "zLabelsSetup", "zLabelsSetup\zLabelsSetup.isproj", "{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{749EC814-61E6-4E67-B564-CC5DB8113263} = {749EC814-61E6-4E67-B564-CC5DB8113263}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
+		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.Release|Any CPU.Build.0 = Release|Any CPU
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{749EC814-61E6-4E67-B564-CC5DB8113263}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.CD_ROM|Any CPU.ActiveCfg = CD_ROM
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.CD_ROM|Any CPU.Build.0 = CD_ROM
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.Debug|Any CPU.ActiveCfg = DVD-5
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.Debug|Any CPU.Build.0 = DVD-5
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.DVD-5|Any CPU.ActiveCfg = DVD-5
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.DVD-5|Any CPU.Build.0 = DVD-5
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.Release|Any CPU.ActiveCfg = SingleImage
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.Release|Any CPU.Build.0 = SingleImage
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.SingleImage|Any CPU.ActiveCfg = SingleImage
+		{A8FA6A7A-C322-4CAA-8439-3FD7977AF9FA}.SingleImage|Any CPU.Build.0 = SingleImage
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
