@@ -22,7 +22,7 @@ namespace ZebraSender
         private List<string> lines = new List<string>();    //parsed data extracted from all files chosen
         List<string> ttNames = new List<string>();          //base names of all setup sheet files chosen (path is stripped)  
         private List<string> assyNames = new List<string>();
-        private string zLabelsAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\zLabels";
+        private string zLabelsAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\zLabels";
         private string user = null;
         private string initials = null;
         private string helpStr = null;
