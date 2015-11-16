@@ -22,7 +22,6 @@ namespace ZebraSender
         private List<string> lines = new List<string>();    //parsed data extracted from all files chosen
         List<string> ttNames = new List<string>();          //base names of all setup sheet files chosen (path is stripped)  
         private List<string> assyNames = new List<string>();
-        private string zLabelsAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\zLabels";
         private string user = null;
         private string initials = null;
         private string helpStr = null;
@@ -57,7 +56,7 @@ namespace ZebraSender
 
         private void InitHelpPopUp()
         {
-            string hfile = zLabelsAppDataDir + "\\help.txt";     
+            string hfile = "help.txt";     
             using (StreamReader rdStream = new StreamReader(hfile))
             {
                 helpStr = rdStream.ReadToEnd();
@@ -102,7 +101,7 @@ namespace ZebraSender
         private string GetPrinterIP()
         {
             string ipAddr = null;
-            string fil = zLabelsAppDataDir + "\\printer_addr.txt";
+            string fil = "printer_addr.txt";
             using ( StreamReader rdStream = new StreamReader(fil) )
             {
                 char[] seps = new char[] { ' ' };
@@ -557,7 +556,7 @@ namespace ZebraSender
         private string StripPrefix(string part)
         {
             List<string> prefixs = new List<string>();
-            string preFile = zLabelsAppDataDir + "\\Prefixes.ini";
+            string preFile = "Prefixes.ini";
             string stripped = part;
             using (StreamReader rd = new StreamReader(preFile))
             {
