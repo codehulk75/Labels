@@ -340,9 +340,8 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>ISX_DEFAULTCOMPONENT</td><td>{50B6966A-17C8-4FE1-8437-50BA02009560}</td><td>ZLABELS2</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{CBE4A35D-6F4F-4511-BEC0-B6A09315409A}</td><td>ZLABELS2</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{82D8D65A-06E9-442F-989A-B6573CED736E}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{27775C50-9E10-48E3-8B8C-AACFE74372AD}</td><td>CommonAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ZebraSender.Primary_output</td><td>{E0DCE7EE-1D9E-4732-8EE9-C06029480D72}</td><td>INSTALLDIR</td><td>2</td><td/><td>zebrasender.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>zExtract.exe</td><td>{BAC0D70E-AD31-4339-97F1-5753CD405F83}</td><td>INSTALLDIR</td><td>2</td><td/><td>zextract.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
@@ -1053,13 +1052,11 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
-		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>CommonAppDataFolder</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 		<row><td>INSTALLDIR</td><td>ZebraSender.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>zExtract.exe</td></row>
-		<row><td>ZLABELS2</td><td>ISX_DEFAULTCOMPONENT</td></row>
-		<row><td>ZLABELS2</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1181,7 +1178,6 @@
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>ZLABELS</td><td>BENCHMARK_ELECTRONICS</td><td>zLabels</td><td/><td>0</td><td/></row>
 		<row><td>ZLABELS1</td><td>ZLABELS3</td><td>zLabels</td><td/><td>0</td><td/></row>
-		<row><td>ZLABELS2</td><td>AppDataFolder</td><td>zLabels</td><td/><td>0</td><td/></row>
 		<row><td>ZLABELS3</td><td>ProgramFilesFolder</td><td>zLabels</td><td/><td>0</td><td/></row>
 		<row><td>benchm_1_benchmark_electronics_nashua</td><td>ProgramMenuFolder</td><td>BENCHM~1|Benchmark Electronics Nashua</td><td/><td>1</td><td/></row>
 		<row><td>zlabels</td><td>benchm_1_benchmark_electronics_nashua</td><td>zLabels</td><td/><td>1</td><td/></row>
@@ -1876,9 +1872,8 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 		<row><td>AlwaysInstall</td><td>ZebraSender.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>zExtract.exe</td></row>
 	</table>
@@ -1895,9 +1890,9 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>help.txt</td><td>ISX_DEFAULTCOMPONENT1</td><td>help.txt</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\thomsc\AppData\Roaming\zLabels\help.txt</td><td>1</td><td/></row>
-		<row><td>prefixes.ini</td><td>ISX_DEFAULTCOMPONENT1</td><td>Prefixes.ini</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\thomsc\AppData\Roaming\zLabels\Prefixes.ini</td><td>1</td><td/></row>
-		<row><td>printer_addr.txt</td><td>ISX_DEFAULTCOMPONENT1</td><td>PRINTE~1.TXT|printer_addr.txt</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\thomsc\AppData\Roaming\zLabels\printer_addr.txt</td><td>1</td><td/></row>
+		<row><td>help.txt2</td><td>ISX_DEFAULTCOMPONENT2</td><td>help.txt</td><td>0</td><td/><td/><td/><td>1</td><td>D:\zLabels\help.txt</td><td>1</td><td/></row>
+		<row><td>prefixes.ini2</td><td>ISX_DEFAULTCOMPONENT2</td><td>Prefixes.ini</td><td>0</td><td/><td/><td/><td>1</td><td>D:\zLabels\Prefixes.ini</td><td>1</td><td/></row>
+		<row><td>printer_addr.txt2</td><td>ISX_DEFAULTCOMPONENT2</td><td>PRINTE~1.TXT|printer_addr.txt</td><td>0</td><td/><td/><td/><td>1</td><td>D:\zLabels\printer_addr.txt</td><td>1</td><td/></row>
 		<row><td>zebrasender.primary_output</td><td>ZebraSender.Primary_output</td><td>ZebraSender.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ZebraSender&gt;|Built</td><td>3</td><td/></row>
 		<row><td>zextract.exe</td><td>zExtract.exe</td><td>zExtract.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\thomsc\Documents\Visual Studio 2015\Projects\ZebraSender\ZebraSender\bin\Release\zExtract.exe</td><td>1</td><td/></row>
 	</table>
@@ -2041,9 +2036,8 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_54EA3C87_230C_4E95_B1EB_C6FBB77ACC37_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_F09A8A14_C7C8_4BA5_B16D_42C31537420F_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_9023FBA3_A209_4065_8672_AD6B5CABBF4C_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_3088F54A_0A23_491A_A055_BE607169C659_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ZebraSender.Primary_output</td><td/><td/><td>_197A4CA8_C519_4174_9D8A_5014277E0DFD_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>zExtract.exe</td><td/><td/><td>_E0C23A11_67AE_471F_8DD2_49D58EC01627_FILTER</td><td/><td/><td/><td/></row>
 	</table>
@@ -2439,7 +2433,7 @@
 		<row><td>DVD-18</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>DVD-5</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>DVD-9</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
-		<row><td>SingleImage</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>1</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
+		<row><td>SingleImage</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>1</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td>1024</td><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>WebDeployment</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>setup</td><td>Default</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>2</td><td>http://www.Installengine.com/Msiengine20</td><td>http://www.Installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 	</table>
 
@@ -2635,7 +2629,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Benchmark Electronics Nashua/Craig Thomson</td><td>0</td><td/><td>1571017839</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Benchmark Electronics Nashua-Craig Thomson</td><td>0</td><td/><td>1705212265</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>1570976687</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1570976687</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1570972623</td></row>
@@ -3738,8 +3732,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1570976687</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1570976687</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>1570976687</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.bench.com</td><td>0</td><td/><td>1570964623</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Benchmark Electronics/Craig Thomson</td><td>0</td><td/><td>1570995311</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.BenchmarkElectronicsNashua-CraigThomson.com</td><td>0</td><td/><td>1705212265</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Benchmark Electronics Nashua-Craig Thomson</td><td>0</td><td/><td>1705212265</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>zLabels</td><td>0</td><td/><td>1570968623</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>1570976687</td></row>
 	</table>
@@ -3987,7 +3981,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{CC607BAA-637C-4C58-BC55-CE0C8953E18A}</td></row>
 		<row><td>ISUSSignature</td><td>{7DC42379-A7C2-4E40-91F0-73A4A893F32D}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewAppFiles,viewObjects,viewShortcuts,viewRegistry,viewIniFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewServices,viewUI,viewTextMessages,viewSystemSearch,viewCustomActions,viewRelease</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewAppFiles,viewObjects,viewShortcuts,viewRegistry,viewIniFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewServices,viewUI,viewTextMessages,viewSystemSearch,viewCustomActions,viewRelease,viewISToday,viewUpgradePaths,viewUpdateService</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4333,6 +4327,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
 		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
+		<row><td>MSIFASTINSTALL</td><td>0</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
