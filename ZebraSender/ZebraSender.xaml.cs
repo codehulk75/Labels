@@ -79,6 +79,12 @@ namespace ZebraSender
             try
             {
                 i = user.LastIndexOf('\\') + 1;
+              //  MessageBox.Show(user.Substring(i, 6)); 
+                if ( user.Substring(i, 6) == "LYONNL")//you're welcome, Lisa
+                {
+                    initials = "LJL";
+                    return initials;
+                }
                 initials = user.Substring(i+5, 1) + user.Substring(i, 1);
             }
             catch (ArgumentOutOfRangeException argEx)
