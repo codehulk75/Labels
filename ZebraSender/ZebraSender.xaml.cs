@@ -29,13 +29,14 @@ namespace ZebraSender
         private int port = 9100;
         Popup helpPopUp = new Popup();
         TextBlock popupText = new TextBlock();
+        private string assytext = null;
         
     public MainWindow()
         {
             InitializeComponent();
             try
             {
-                InitializeComponent();
+               // InitializeComponent();
                 InitHelpPopUp();        
                 dateTextBox.Text = GetDate();
                 dateTextBox.UpdateLayout();              
@@ -167,9 +168,8 @@ namespace ZebraSender
                     basefil = file.Substring(i);
                     ssBrowseLabel.Content = "";
                     ssBrowseLabel.UpdateLayout();
-                    i = basefil.IndexOf('_');
-                    string assy = basefil.Substring(0, i);
-                    assyNames.Add(assy);
+                    assytext = GetAssemblyName(file);
+                    assyNames.Add(assytext);
                     ttNames.Add(basefil);
                     ProcessStartInfo psInfo = new ProcessStartInfo();
                     psInfo.FileName = "zExtract.exe";
@@ -187,13 +187,14 @@ namespace ZebraSender
                 if (assyNames.Count > 1)
                 {
                     assyTextBox.Text = "Change Me to Family Name";
-                    FileInfo fInfo = new FileInfo(suFiles[0]);
+                    FileInfo fInfo = new FileInfo(suFiles[0]);               
                     ssLabel.Content = fInfo.Directory.Name + " FAMILY";
                 }
                 else
                 {
-                    assyTextBox.Text = assyNames[0];
-                    ssLabel.Content = basefil;
+                    assyTextBox.Text = assytext;
+                    string tempstr = basefil.Replace("_", "__");
+                    ssLabel.Content = tempstr;
                 }
                 assyTextBox.UpdateLayout();
                 ssLabel.UpdateLayout();
@@ -203,6 +204,19 @@ namespace ZebraSender
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private string GetAssemblyName(string filestr)
+        {
+            int i = filestr.LastIndexOf('\\');
+            i++;
+            string assystr = filestr.Substring(i);
+
+            string[] temparr = assystr.Split('_');
+            List<string> filechunks = new List<string>(temparr);
+            filechunks.RemoveRange(filechunks.Count - 2, 2);
+            assystr = string.Join("_", filechunks);
+            return assystr;
         }
 
         private string[] GetSetupSheets()
