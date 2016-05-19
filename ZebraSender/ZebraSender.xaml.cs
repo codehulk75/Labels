@@ -36,7 +36,6 @@ namespace ZebraSender
             InitializeComponent();
             try
             {
-               // InitializeComponent();
                 InitHelpPopUp();        
                 dateTextBox.Text = GetDate();
                 dateTextBox.UpdateLayout();              
@@ -166,10 +165,11 @@ namespace ZebraSender
                     int i = file.LastIndexOf('\\');
                     i++;
                     basefil = file.Substring(i);
+                    i = basefil.IndexOf('_');
+                    string assy = basefil.Substring(0, i);
                     ssBrowseLabel.Content = "";
                     ssBrowseLabel.UpdateLayout();
-                    assytext = GetAssemblyName(file);
-                    assyNames.Add(assytext);
+                    assyNames.Add(assy);
                     ttNames.Add(basefil);
                     ProcessStartInfo psInfo = new ProcessStartInfo();
                     psInfo.FileName = "zExtract.exe";
@@ -192,6 +192,7 @@ namespace ZebraSender
                 }
                 else
                 {
+                    //must be called after ReadParts(), that's when assytext gets set
                     assyTextBox.Text = assytext;
                     string tempstr = basefil.Replace("_", "__");
                     ssLabel.Content = tempstr;
@@ -208,6 +209,7 @@ namespace ZebraSender
 
         private string GetAssemblyName(string filestr)
         {
+
             int i = filestr.LastIndexOf('\\');
             i++;
             string assystr = filestr.Substring(i);
@@ -551,6 +553,7 @@ namespace ZebraSender
             {
                 string[] files = Directory.GetFiles(dir, (assyNames[n] + "*.txt"));
                 string procdFil = files[0];
+                assytext = GetAssemblyName(procdFil);
                 if (!string.IsNullOrEmpty(procdFil))
                 {
                     using (StreamReader rdStream = new StreamReader(procdFil))
