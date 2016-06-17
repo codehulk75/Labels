@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Net.Sockets;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Effects;
+using System.Text;
+using System.Linq;
 
 namespace ZebraSender
 {
@@ -24,28 +26,33 @@ namespace ZebraSender
         private List<string> assyNames = new List<string>();
         private string user = null;
         private string initials = null;
-        private string helpStr = null;
-        private string ip = null;
+        private string currentPrinterIP = null;
         private int port = 9100;
-        Popup helpPopUp = new Popup();
-        TextBlock popupText = new TextBlock();
+        private string printerFile = "printer_addr.txt";
+        private string prefixFile = "Prefixes.ini";
         private string assytext = null;
+        private string currentPrinter = null;
+        private Dictionary<string,string> availablePrinters = new Dictionary<string, string>();
+        private List<string> m_Prefixes;
+        private List<string> m_IgnoredPrefixes = new List<string>();
         
-    public MainWindow()
+
+        public MainWindow()
         {
             InitializeComponent();
             try
-            {
-                InitHelpPopUp();        
+            {      
                 dateTextBox.Text = GetDate();
                 dateTextBox.UpdateLayout();              
                 initialsTextBox.Text = GetInitials();
                 initialsTextBox.UpdateLayout();
                 assyTextBox.IsEnabled = false;
                 addLabelButton.IsEnabled = false;
-                ip = GetPrinterIP();
-                if (ip == null)
+                currentPrinterIP = GetPrinterIP();
+                GetPrefixes();
+                if (currentPrinterIP == null)
                     MessageBox.Show("Failed to get printer address.\nContact IT to configure a valid printer.", "Printer Config Error");
+                printerLabel.Content = currentPrinter;
                 ssbutton.Focus();
             }
             catch (Exception ex)
@@ -54,21 +61,37 @@ namespace ZebraSender
             }
         }
 
-        private void InitHelpPopUp()
+        public List<string> Prefixes
         {
-            string hfile = "help.txt";     
-            using (StreamReader rdStream = new StreamReader(hfile))
-            {
-                helpStr = rdStream.ReadToEnd();
-            }
-            popupText.Text = helpStr;
-            popupText.Background = System.Windows.Media.Brushes.Snow;
-            popupText.Foreground = System.Windows.Media.Brushes.Black;
-            helpPopUp.Child = popupText;
-            helpPopUp.PlacementTarget = myGrid;
-            helpPopUp.PlacementRectangle = new Rect(0, 0, 700, 500);
-            helpPopUp.Placement = PlacementMode.Center;
-            helpPopUp.PopupAnimation = PopupAnimation.Fade;
+            get { return m_Prefixes; }
+            set { m_Prefixes.Clear(); m_Prefixes = value; }
+        }
+
+        public List<string> IgnoredPrefixes
+        {
+            get { return m_IgnoredPrefixes; }
+            set { m_IgnoredPrefixes.Clear(); m_IgnoredPrefixes = value; }
+        }
+
+        public Dictionary<string, string> AvailablePrinters
+        {            
+            get { return availablePrinters; }
+        }
+
+        public string Printer
+        {
+            get { return currentPrinter; }
+            set { currentPrinter = value; currentPrinterIP = availablePrinters[currentPrinter]; }
+        }   
+
+        public string PrintFile
+        {
+            get { return printerFile; }
+        }
+
+        public string PrefixFile
+        {
+            get { return prefixFile; }
         }
 
         private string GetInitials()
@@ -79,12 +102,6 @@ namespace ZebraSender
             try
             {
                 i = user.LastIndexOf('\\') + 1;
-              //  MessageBox.Show(user.Substring(i, 6)); 
-                if ( user.Substring(i, 6) == "LYONNL")//you're welcome, Lisa
-                {
-                    initials = "LJL";
-                    return initials;
-                }
                 initials = user.Substring(i+5, 1) + user.Substring(i, 1);
             }
             catch (ArgumentOutOfRangeException argEx)
@@ -104,36 +121,65 @@ namespace ZebraSender
             return date;
         }
 
+        public void GetPrefixes()
+        {
+            List<string> readlist = new List<string>();
+            using (StreamReader rd = new StreamReader(prefixFile))
+            {
+                string line;
+                while ((line = rd.ReadLine()) != null)
+                {
+                    if (string.IsNullOrEmpty(line) || line.Length > 11)
+                    {
+                        continue;
+                    }
+                    if (line.StartsWith("#"))
+                    {
+                        line = line.Remove(0);
+                    }
+                    readlist.Add(line);
+                }
+            }
+            m_Prefixes = readlist.Distinct().ToList();
+        }
+
         private string GetPrinterIP()
         {
             string ipAddr = null;
-            string fil = "printer_addr.txt";
-            using ( StreamReader rdStream = new StreamReader(fil) )
+            using ( StreamReader rdStream = new StreamReader(printerFile) )
             {
-                char[] seps = new char[] { ' ' };
                 string pattern = @"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$";
                 string line;
                 while ( (line = rdStream.ReadLine()) != null)
                 {
                     if (string.IsNullOrEmpty(line))
                         continue;
+                    string[] words = line.Split();
                     if (line[0] == '#')
                     {
+                        if(words.Length == 2 && Regex.IsMatch(words[1], pattern))
+                        {
+                            availablePrinters.Add(words[0].Remove(0,1), words[1]);
+                        }                      
                         continue;
+                    }                    
+                    currentPrinter = words[0];
+
+                    if (words.Length == 2 && Regex.IsMatch(words[1], pattern))
+                    {
+                        availablePrinters.Add(words[0], words[1]);
                     }
-                    string[] lines = line.Split(seps);
-                    foreach (var item in lines)
+                    foreach (var item in words)
                     {
                         if (Regex.IsMatch(item, pattern))
-                        {
+                        {                          
                             ipAddr = item;
                             //ensure config file lists valid bei \16 ip for the printer
                             if ( (ipAddr.Substring(0, 7) != "167.67.") && (ipAddr != "127.0.0.1") )
                             {
                                 MessageBox.Show("Printer IP("+ipAddr+") is not on the BEI domain.\nPlease contact IT to configure the printer_addr.txt file and restart the application.", "Invalid Printer Address Configured");
                                 ipAddr = "-1";
-                            }
-                            return ipAddr;
+                            }                          
                         }
                     }
                 }
@@ -148,65 +194,78 @@ namespace ZebraSender
                 assyTextBox.IsEnabled = true;
                 string[] fils = GetSetupSheets();
                 if (fils.Length == 0)
-                {
                     return;
-                }
-                suFiles.Clear();    
-                lines.Clear();
-                assyNames.Clear();
-                pnTextBox.Clear();
-                locTextBox.Clear();
-                commentTextBox.Clear();
-                woTextBox.Clear();
-                ttNames.Clear();
-                suFiles = new List<string>(fils);
+                ResetData(fils);
                 foreach (string file in suFiles)
                 {
-                    int i = file.LastIndexOf('\\');
-                    i++;
-                    basefil = file.Substring(i);
-                    i = basefil.IndexOf('_');
-                    string assy = basefil.Substring(0, i);
-                    ssBrowseLabel.Content = "";
-                    ssBrowseLabel.UpdateLayout();
-                    assyNames.Add(assy);
-                    ttNames.Add(basefil);
-                    ProcessStartInfo psInfo = new ProcessStartInfo();
-                    psInfo.FileName = "zExtract.exe";
-                    psInfo.Arguments = "\"" + file + "\"";
-                    psInfo.ErrorDialog = true;
-                    psInfo.CreateNoWindow = true;
-                    psInfo.UseShellExecute = false;
-                    psInfo.WorkingDirectory = "";
-                    Process p = Process.Start(psInfo);
-                    p.WaitForExit();                   
+                    basefil = PopulateVars(file);
+                    ParseSheet("zExtract.exe", file);                 
                 }
-
                 ReadParts();
-
-                if (assyNames.Count > 1)
-                {
-                    assyTextBox.Text = "Change Me to Family Name";
-                    FileInfo fInfo = new FileInfo(suFiles[0]);               
-                    ssLabel.Content = fInfo.Directory.Name + " FAMILY";
-                }
-                else
-                {
-                    //must be called after ReadParts(), that's when assytext gets set
-                    assyTextBox.Text = assytext;
-                    string tempstr = basefil.Replace("_", "__");
-                    ssLabel.Content = tempstr;
-                }
-                assyTextBox.UpdateLayout();
-                ssLabel.UpdateLayout();
+                UpdateAssyAndSSLabels(basefil);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "ssbutton_Click()");
             }
-
         }
 
+        private void ResetData(string[] fileList)
+        {
+            suFiles.Clear();
+            lines.Clear();
+            assyNames.Clear();
+            pnTextBox.Clear();
+            locTextBox.Clear();
+            commentTextBox.Clear();
+            woTextBox.Clear();
+            ttNames.Clear();
+            suFiles = new List<string>(fileList);
+        }
+        private string PopulateVars(string setupSheetFile)
+        {
+            //uses setupSheetFile to populate some labels' content on the form, and populate a couple lists, returns the base name of setupSheetFile
+            int i = setupSheetFile.LastIndexOf('\\');
+            i++;
+            string baseFile = setupSheetFile.Substring(i);
+            i = baseFile.IndexOf('_');
+            string assy = baseFile.Substring(0, i);
+            ssBrowseLabel.Content = "";
+            ssBrowseLabel.UpdateLayout();
+            assyNames.Add(assy);
+            ttNames.Add(baseFile);
+            return baseFile;
+        }
+
+        private void UpdateAssyAndSSLabels(string name)
+        {
+            //must be called after ReadParts(), that's when assytext gets set
+            if (assyNames.Count > 1)
+            {
+                assyTextBox.Text = "Change Me to Family Name";
+                FileInfo fInfo = new FileInfo(suFiles[0]);
+                ssLabel.Content = fInfo.Directory.Name + " FAMILY";
+            }
+            else
+            {              
+                assyTextBox.Text = assytext;
+                ssLabel.Content = name.Replace("_", "__"); ;
+            }
+            assyTextBox.UpdateLayout();
+            ssLabel.UpdateLayout();
+        }
+        private void ParseSheet(string perlExtractScript, string setupSheetFile)
+        {
+            ProcessStartInfo psInfo = new ProcessStartInfo();
+            psInfo.FileName = perlExtractScript;
+            psInfo.Arguments = "\"" + setupSheetFile + "\"";
+            psInfo.ErrorDialog = true;
+            psInfo.CreateNoWindow = true;
+            psInfo.UseShellExecute = false;
+            psInfo.WorkingDirectory = "";
+            Process p = Process.Start(psInfo);
+            p.WaitForExit();
+        }
         private string GetAssemblyName(string filestr)
         {
 
@@ -442,74 +501,87 @@ namespace ZebraSender
                 return;
             if (e.Text == inchar)
             {
-                List<string> results = new List<string>();
-                pnTextBox.Text = pnTextBox.Text.ToUpper();
-                string pnum = pnTextBox.Text;
-                pnum = StripPrefix(pnum);
-                string pattern = @"^" + pnum + @" =>";
-                foreach (string line in lines)
+                try
                 {
-                    Match match = Regex.Match(line, pattern);
-                    if (match.Success)
+                    List<string> results = new List<string>();
+                    pnTextBox.Text = pnTextBox.Text.ToUpper();
+                    string pnum = pnTextBox.Text;
+                    pnum = StripPrefix(pnum);
+                    string pattern = @"^" + pnum + @" =>";
+                    foreach (string line in lines)
                     {
-                        results.Add(line);
+                        Match match = Regex.Match(line, pattern);
+                        if (match.Success)
+                        {
+                            results.Add(line);
+                        }
                     }
-                }
-                if (results.Count == 0)
-                {
-                    MessageBox.Show("Part Number not found by auto search.\nEnter machine location by hand."
-                        + "\nUse the format Machine/Slot."
-                        + "\nDon't forget the forward slash or you will get an 'Index out of bounds' error when you try to print!!", "Oops!!");
-                    locTextBox.Clear();
-                    locTextBox.Focus();
-                    return;
-                }
-                List<string> location;
-                if (firstPassRadioButton.IsChecked == true)
-                {
-                    location = GetLocation(results, "SMT 1");
-                    if (location.Count == 0)
+                    if (results.Count == 0)
                     {
-                        LocationNotFound("1st");
+                        MessageBox.Show("Part Number not found by auto search.\nEnter machine location by hand."
+                            + "\nUse the format Machine/Slot."
+                            + "\nDon't forget the forward slash or you will get an 'Index out of bounds' error when you try to print!!", "Oops!!");
+                        locTextBox.Clear();
+                        locTextBox.Focus();
                         return;
                     }
-                    if (location.Count > 1)
+                    List<string> location;
+                    if (firstPassRadioButton.IsChecked == true)
                     {
-                        MessageBox.Show("Warning!\nThis part is in different locations on different assemblies.\nUsing 1st location found on 1st pass.",
-                            "CF Mode 1st Pass Family Matching Error");
+                        location = GetLocation(results, "SMT 1");
+                        if (location.Count == 0)
+                        {
+                            LocationNotFound("1st");
+                            return;
+                        }
+                        if (location.Count > 1)
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            foreach(string s in location)
+                            {
+                                sb.Append(s + "\n");
+                            }
+                            string allLocations = sb.ToString();
+                            MessageBox.Show("Warning!\nThis part is in different locations on different assemblies:\n\n" + allLocations + "\n\nUsing 1st location found on 1st pass.",
+                                "CF Mode 1st Pass Family Matching Error");
+                        }
                     }
-                }
-                else if (secondPassRadioButton.IsChecked == true)
-                {
-                    location = GetLocation(results, "SMT 2");
-                    if (location.Count == 0)
+                    else if (secondPassRadioButton.IsChecked == true)
                     {
-                        LocationNotFound("2nd");
-                        return;
+                        location = GetLocation(results, "SMT 2");
+                        if (location.Count == 0)
+                        {
+                            LocationNotFound("2nd");
+                            return;
+                        }
+                        if (location.Count > 1)
+                        {
+                            MessageBox.Show("Warning!\nThis part is in different locations on different assemblies.\nUsing 1st location found on 2nd pass.",
+                                "CF Mode 2nd Pass Family Matching Error");
+                        }
                     }
-                    if (location.Count > 1)
+                    else //batch button must be checked
                     {
-                        MessageBox.Show("Warning!\nThis part is in different locations on different assemblies.\nUsing 1st location found on 2nd pass.",
-                            "CF Mode 2nd Pass Family Matching Error");
+                        location = GetLocation(results, "batch");
+                        if (location.Count == 0)
+                        {
+                            LocationNotFound("either");
+                            return;
+                        }
+                        if (location.Count > 1)
+                        {
+                            MessageBox.Show("Warning!\nBatch Mode is checked but part is in different locations.\nUsing 1st location found.",
+                                "Batch Mode Matching Error");
+                        }
                     }
-                }
-                else //batch button must be checked
-                {    
-                    location = GetLocation(results, "batch");
-                    if (location.Count == 0)
-                    {
-                        LocationNotFound("either");
-                        return;
-                    }
-                    if (location.Count > 1)
-                    {
-                        MessageBox.Show("Warning!\nBatch Mode is checked but part is in different locations.\nUsing 1st location found.",
-                            "Batch Mode Matching Error");
-                    }
-                }
 
-                locTextBox.Text = location[0];
-                qtyTextBox.Focus();
+                    locTextBox.Text = location[0];
+                    qtyTextBox.Focus();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("PreviewTextInput() \n" + ex.Message);
+                }
             }
         }
 
@@ -549,58 +621,61 @@ namespace ZebraSender
             dir = dir.Substring(0, j);
             dir += "\\Local\\Temp";
             int n = 0;
-            foreach (string assembly  in assyNames)
+            try
             {
-                string[] files = Directory.GetFiles(dir, (assyNames[n] + "*.txt"));
-                string procdFil = files[0];
-                assytext = GetAssemblyName(procdFil);
-                if (!string.IsNullOrEmpty(procdFil))
+                foreach (string assembly in assyNames)
                 {
-                    using (StreamReader rdStream = new StreamReader(procdFil))
+                    string[] files = Directory.GetFiles(dir, (assyNames[n] + "*.txt"));
+                    string procdFil = files[0];
+                    assytext = GetAssemblyName(procdFil);
+                    if (!string.IsNullOrEmpty(procdFil))
                     {
-                        string line = "asf";
-                        for (int i = 0; i < 4; i++)
+                        using (StreamReader rdStream = new StreamReader(procdFil))
                         {
-                            rdStream.ReadLine();
+                            string line = "asf";
+                            for (int i = 0; i < 4; i++)
+                            {
+                                rdStream.ReadLine();
+                            }
+                            while (!string.IsNullOrEmpty(line))
+                            {
+                                line = rdStream.ReadLine();
+                                lines.Add(line);
+                            }
+                            lines.RemoveAt(lines.Count - 1);
                         }
-                        while (!string.IsNullOrEmpty(line))
-                        {
-                            line = rdStream.ReadLine();
-                            lines.Add(line);
-                        }
-                        lines.RemoveAt(lines.Count - 1);
+                        File.Delete(procdFil);
                     }
-                    File.Delete(procdFil);
+                    n++;
                 }
-                n++;
+               
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show("ReadParts()\n" + ex.Message);
+            }
+            
         }
 
         private string StripPrefix(string part)
         {
-            List<string> prefixs = new List<string>();
-            string preFile = "Prefixes.ini";
+                     
             string stripped = part;
-            using (StreamReader rd = new StreamReader(preFile))
+            try
             {
-                string line;
-                while ((line = rd.ReadLine()) != null)
+                foreach (string s in m_Prefixes)
                 {
-                    if (line[0] == '#')
+                    if (stripped.StartsWith(s))
                     {
-                        continue;
+                        int len = s.Length;
+                        stripped = stripped.Substring(len, stripped.Length - s.Length);
+                        break;
                     }
-                    prefixs.Add(line);
                 }
             }
-            foreach (string s in prefixs)
+            catch(Exception ex)
             {
-                if (stripped.StartsWith(s))
-                {
-                    int len = s.Length;
-                    stripped = stripped.Substring(len, stripped.Length - s.Length);
-                    break;
-                }
+                MessageBox.Show("Inside StripPrefix()\n" + ex.Message);
             }
             return stripped;
         }
@@ -726,7 +801,7 @@ namespace ZebraSender
             {
                 //connect to zpl printer using ip+port and send zpl label format command with tcp socket
                 TcpClient client = new TcpClient();
-                client.Connect(ip, port);
+                client.Connect(currentPrinterIP, port);
                 System.IO.StreamWriter writer = new System.IO.StreamWriter(client.GetStream());
                 writer.Write(label);
                 writer.Flush();
@@ -819,16 +894,40 @@ namespace ZebraSender
             lab.ToolTip = tt;
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+
+        private void exitMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if ( e.Key == Key.F1)
-            {
-               helpPopUp.IsOpen = true;                           
-            }
-            else if ( e.Key == Key.Escape)
-            {
-                helpPopUp.IsOpen = false;
-            }
+            Application.Current.Shutdown();
+        }
+
+        private void loadSetupSheetsItem_Click(object sender, RoutedEventArgs e)
+        {
+            ssbutton_Click(sender, e);
+        }
+
+        private void helpAboutItem_Click(object sender, RoutedEventArgs e)
+        {
+            var helpwin = new AboutBox1();
+            helpwin.Show();
+        }
+
+        private void userGuideMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DocumentViewer dv = new DocumentViewer();
+            HelpWindow helpwin = new HelpWindow();
+            helpwin.Show();
+        }
+
+        private void changePrinterItem_Click(object sender, RoutedEventArgs e)
+        {
+            SelectPrinterWindow printwin = new SelectPrinterWindow();
+            printwin.Show();                    
+        }
+
+        private void editPrefixOption_Click(object sender, RoutedEventArgs e)
+        {
+            EditPrefixes prefixwin = new EditPrefixes();
+            prefixwin.Show();
         }
     }
 }

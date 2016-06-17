@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZebraSender"
         mc:Ignorable="d"
-        Title="zLabels" Height="500" Width="700" BorderBrush="#FF010740" KeyDown="Window_KeyDown">
+        Title="zLabels" Height="500" Width="700" BorderBrush="#FF010740">
     <Window.Resources>
         <Color x:Key="sweetGrey">#FF494646</Color>
     </Window.Resources>
@@ -21,7 +21,7 @@
         <ImageBrush/>
     </Window.Foreground>
     <Grid x:Name="myGrid">
-        <Label x:Name="ssLabel" HorizontalAlignment="Center" Height="30" VerticalAlignment="Top" Width="492" FontSize="13.333" FontWeight="Bold" Margin="150,0,50,0" RenderTransformOrigin="0.5,0.5" ToolTipOpening="ssLabel_ToolTipOpening" ToolTip="assyNames">
+        <Label x:Name="ssLabel" HorizontalAlignment="Center" Height="30" VerticalAlignment="Top" Width="492" FontSize="13.333" FontWeight="Bold" Margin="145,40,55,0" RenderTransformOrigin="0.5,0.5" ToolTipOpening="ssLabel_ToolTipOpening" ToolTip="assyNames">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -31,7 +31,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Button x:Name="ssbutton" Content="Browse" Margin="15,31,0,0" RenderTransformOrigin="0.5,0.5" ToolTip="Navigate to the correct methods setup sheet file." FontWeight="Bold" Click="ssbutton_Click" TabIndex="0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65">
+        <Button x:Name="ssbutton" Content="Browse" Margin="10,71,0,0" RenderTransformOrigin="0.5,0.5" ToolTip="Navigate to the correct methods setup sheet file." FontWeight="Bold" Click="ssbutton_Click" TabIndex="0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
@@ -44,51 +44,51 @@
                 </RadialGradientBrush>
             </Button.Background>
         </Button>
-        <Label x:Name="ssBrowseLabel" Content="Choose a Setup Sheet" Margin="80,30,0,0" FontWeight="Bold" HorizontalAlignment="Left" Width="180" Height="40" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="curSuLabel" Content="Current Setup:" Margin="10,0,0,0" RenderTransformOrigin="0.5,0.471" FontWeight="Bold" HorizontalAlignment="Left" Width="90" Height="26" VerticalAlignment="Top"/>
-        <Label x:Name="initialsLabel" Content="Initials:" Margin="10,71,0,0" HorizontalAlignment="Left" Width="50" Height="24" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="initialsTextBox" Margin="65,71,0,0" TextWrapping="Wrap" RenderTransformOrigin="0,0.583" GotFocus="initialsTextBox_GotFocus" TabIndex="2" TextChanged="initialsTextBox_TextChanged" HorizontalAlignment="Left" Width="45" Height="24" VerticalAlignment="Top" FontWeight="Bold" FontSize="13.333" MaxLength="6" >
+        <Label x:Name="ssBrowseLabel" Content="Choose a Setup Sheet" Margin="75,70,0,0" FontWeight="Bold" HorizontalAlignment="Left" Width="180" Height="40" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="curSuLabel" Content="Current Setup:" Margin="5,40,0,0" RenderTransformOrigin="0.5,0.471" FontWeight="Bold" HorizontalAlignment="Left" Width="95" Height="26" VerticalAlignment="Top"/>
+        <Label x:Name="initialsLabel" Content="Initials:" Margin="5,111,0,0" HorizontalAlignment="Left" Width="50" Height="24" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="initialsTextBox" Margin="60,111,0,0" TextWrapping="Wrap" RenderTransformOrigin="0,0.583" GotFocus="initialsTextBox_GotFocus" TabIndex="2" TextChanged="initialsTextBox_TextChanged" HorizontalAlignment="Left" Width="45" Height="24" VerticalAlignment="Top" FontWeight="Bold" FontSize="13.333" MaxLength="6" >
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
         </TextBox>
-        <Label x:Name="dateLabel" Content="Date (MM/DD):" Margin="130,71,0,0" HorizontalAlignment="Left" Width="105" Height="24" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="dateTextBox" Margin="240,71,0,0" TextWrapping="Wrap" GotFocus="dateTextBox_GotFocus" TabIndex="3" TextChanged="dateTextBox_TextChanged" HorizontalAlignment="Left" Width="70" Height="24" VerticalAlignment="Top" FontWeight="Bold" FontSize="13.333" MaxLength="10" >
+        <Label x:Name="dateLabel" Content="Date (MM/DD):" Margin="125,111,0,0" HorizontalAlignment="Left" Width="105" Height="24" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="dateTextBox" Margin="235,111,0,0" TextWrapping="Wrap" GotFocus="dateTextBox_GotFocus" TabIndex="3" TextChanged="dateTextBox_TextChanged" HorizontalAlignment="Left" Width="70" Height="24" VerticalAlignment="Top" FontWeight="Bold" FontSize="13.333" MaxLength="10" >
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
         </TextBox>
-        <Label x:Name="assyLabel" Content="Assembly:" Margin="295,32,0,0" ToolTip="Click the Browse button to choose a setup sheet first.  Then edit the box if need be." Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" FontWeight="Bold" FontSize="16"/>
-        <TextBox x:Name="assyTextBox" Margin="390,32,0,0" TextWrapping="Wrap" GotFocus="assyTextBox_GotFocus" ToolTip="Change this field if you are doing a family." TabIndex="1" TextChanged="assyTextBox_TextChanged" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="280" FontWeight="Bold" FontSize="13.333" LostFocus="assyTextBox_LostFocus" MouseDown="assyTextBox_MouseDown" MaxLength="40"  >
+        <Label x:Name="assyLabel" Content="Assembly:" Margin="290,72,0,0" ToolTip="Click the Browse button to choose a setup sheet first.  Then edit the box if need be." Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" FontWeight="Bold" FontSize="16"/>
+        <TextBox x:Name="assyTextBox" Margin="385,72,0,0" TextWrapping="Wrap" GotFocus="assyTextBox_GotFocus" ToolTip="Change this field if you are doing a family." TabIndex="1" TextChanged="assyTextBox_TextChanged" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="280" FontWeight="Bold" FontSize="13.333" LostFocus="assyTextBox_LostFocus" MouseDown="assyTextBox_MouseDown" MaxLength="40"  >
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
         </TextBox>
-        <Label x:Name="woLabel" Content="W/O#:" Margin="365,71,0,0" HorizontalAlignment="Left" Width="45" Height="26" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="woTextBox" Margin="415,71,0,0" TextWrapping="Wrap" GotFocus="woTextBox_GotFocus" TabIndex="4" TextChanged="woTextBox_TextChanged" HorizontalAlignment="Left" Width="255" Height="24" VerticalAlignment="Top" LostFocus="woTextBox_LostFocus" FontWeight="Bold" FontSize="13.333" MaxLength="40" >
+        <Label x:Name="woLabel" Content="W/O#:" Margin="360,111,0,0" HorizontalAlignment="Left" Width="45" Height="26" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="woTextBox" Margin="410,111,0,0" TextWrapping="Wrap" GotFocus="woTextBox_GotFocus" TabIndex="4" TextChanged="woTextBox_TextChanged" HorizontalAlignment="Left" Width="255" Height="24" VerticalAlignment="Top" LostFocus="woTextBox_LostFocus" FontWeight="Bold" FontSize="13.333" MaxLength="40" >
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
         </TextBox>
-        <Label x:Name="scanPNlabel" Content="Scan the Part Number Barcode:&#xD;&#xA;" Margin="15,0,0,260" VerticalAlignment="Bottom" Height="33" FontWeight="Bold" FontSize="21.333" HorizontalAlignment="Left" Width="330"/>
-        <TextBox x:Name="pnTextBox" Margin="15,0,0,225" TextWrapping="Wrap" TabIndex="8" GotFocus="pnTextBox_GotFocus" TextChanged="pnTextBox_TextChanged" VerticalContentAlignment="Center" FontSize="14.667" FontWeight="Bold" HorizontalAlignment="Left" Width="405" Height="30" VerticalAlignment="Bottom" PreviewTextInput="pnTextBox_PreviewTextInput" MaxLength="40"  >
+        <Label x:Name="scanPNlabel" Content="Scan the Part Number Barcode:&#xD;&#xA;" Margin="10,0,0,220" VerticalAlignment="Bottom" Height="33" FontWeight="Bold" FontSize="21.333" HorizontalAlignment="Left" Width="330"/>
+        <TextBox x:Name="pnTextBox" Margin="10,0,0,185" TextWrapping="Wrap" TabIndex="8" GotFocus="pnTextBox_GotFocus" TextChanged="pnTextBox_TextChanged" VerticalContentAlignment="Center" FontSize="14.667" FontWeight="Bold" HorizontalAlignment="Left" Width="405" Height="30" VerticalAlignment="Bottom" PreviewTextInput="pnTextBox_PreviewTextInput" MaxLength="40"  >
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
         </TextBox>
-        <TextBox x:Name="qtyTextBox" Margin="180,0,0,155" TextWrapping="Wrap" Text="1" FontWeight="Bold" FontSize="24" TextDecorations="{x:Null}" TextAlignment="Center" TabIndex="10" LostFocus="qtyTextBox_LostFocus" GotFocus="qtyTextBox_GotFocus" TextChanged="qtyTextBox_TextChanged" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="55" AllowDrop="False" MaxLength="2">
+        <TextBox x:Name="qtyTextBox" Margin="175,0,0,115" TextWrapping="Wrap" Text="1" FontWeight="Bold" FontSize="24" TextDecorations="{x:Null}" TextAlignment="Center" TabIndex="10" LostFocus="qtyTextBox_LostFocus" GotFocus="qtyTextBox_GotFocus" TextChanged="qtyTextBox_TextChanged" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="55" AllowDrop="False" MaxLength="2">
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
         </TextBox>
-        <Label x:Name="qtyLabel" Content="Enter Reel Qty:" Margin="15,0,0,155" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="21.333" Height="40" RenderTransformOrigin="0.474,0.375" HorizontalAlignment="Left" Width="160" />
-        <Label x:Name="locLabel" Content="Machine/Slot" Margin="515,0,0,260" RenderTransformOrigin="0.484,0.394" FontSize="21.333" FontWeight="Bold" HorizontalAlignment="Left" Width="155" Height="33" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="locTextBox" TextWrapping="Wrap" TabIndex="9" GotFocus="locTextBox_GotFocus" TextChanged="locTextBox_TextChanged" VerticalContentAlignment="Center" FontSize="14.667" FontWeight="Bold" Margin="515,0,0,225" HorizontalAlignment="Left" Width="155" Height="30" VerticalAlignment="Bottom" MaxLength="40"  >
+        <Label x:Name="qtyLabel" Content="Enter Reel Qty:" Margin="10,0,0,115" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="21.333" Height="40" RenderTransformOrigin="0.474,0.375" HorizontalAlignment="Left" Width="160" />
+        <Label x:Name="locLabel" Content="Machine/Slot" Margin="510,0,0,220" RenderTransformOrigin="0.484,0.394" FontSize="21.333" FontWeight="Bold" HorizontalAlignment="Left" Width="155" Height="33" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="locTextBox" TextWrapping="Wrap" TabIndex="9" GotFocus="locTextBox_GotFocus" TextChanged="locTextBox_TextChanged" VerticalContentAlignment="Center" FontSize="14.667" FontWeight="Bold" Margin="510,0,0,185" HorizontalAlignment="Left" Width="155" Height="30" VerticalAlignment="Bottom" MaxLength="40"  >
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
         </TextBox>
-        <Button x:Name="addLabelButton" Content="Print" Margin="270,0,0,90" RenderTransformOrigin="0.5,0.5" ToolTip="When all boxes are populated, click me." FontWeight="Bold" TabIndex="12" FontSize="18.667" Click="addLabelButton_Click" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="115">
+        <Button x:Name="addLabelButton" Content="Print" Margin="265,0,0,50" RenderTransformOrigin="0.5,0.5" ToolTip="When all boxes are populated, click me." FontWeight="Bold" TabIndex="12" FontSize="18.667" Click="addLabelButton_Click" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="115">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
@@ -101,17 +101,46 @@
                 </RadialGradientBrush>
             </Button.Background>
         </Button>
-        <RadioButton x:Name="firstPassRadioButton" Content="CF Mode - 1st Pass" Margin="250,135,272,298" FontWeight="Bold" TabIndex="6" IsChecked="True" FontSize="16" KeyDown="firstPassRadioButton_KeyDown"/>
-        <RadioButton x:Name="secondPassRadioButton" Content="CF Mode - 2nd Pass" Margin="490,135,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" TabIndex="7" FontSize="16" KeyDown="secondPassRadioButton_KeyDown" HorizontalAlignment="Left" Width="170"/>
-        <RadioButton x:Name="batchModeRadioButton" Content="Batch Mode" HorizontalAlignment="Left" Margin="30,135,0,0" VerticalAlignment="Top" Height="25" Width="117" FontWeight="Bold" FontSize="16" IsChecked="True" TabIndex="5" KeyDown="batchModeRadioButton_KeyDown"/>
-        <Label x:Name="commentLabel" Content="Comment:" HorizontalAlignment="Left" Margin="250,0,0,154" VerticalAlignment="Bottom" Width="115" Height="40" FontSize="21.333" FontWeight="Bold" RenderTransformOrigin="0.348,0.6"/>
-        <TextBox x:Name="commentTextBox" Margin="370,0,22,154" MaxLength="31" MaxLines="1" Height="40" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="14.667" VerticalContentAlignment="Center" TabIndex="9001" IsTabStop="False">
+        <RadioButton x:Name="firstPassRadioButton" Content="CF Mode - 1st Pass" Margin="245,175,277,258" FontWeight="Bold" TabIndex="6" IsChecked="True" FontSize="16" KeyDown="firstPassRadioButton_KeyDown"/>
+        <RadioButton x:Name="secondPassRadioButton" Content="CF Mode - 2nd Pass" Margin="485,175,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" TabIndex="7" FontSize="16" KeyDown="secondPassRadioButton_KeyDown" HorizontalAlignment="Left" Width="170"/>
+        <RadioButton x:Name="batchModeRadioButton" Content="Batch Mode" HorizontalAlignment="Left" Margin="25,175,0,0" VerticalAlignment="Top" Height="25" Width="117" FontWeight="Bold" FontSize="16" IsChecked="True" TabIndex="5" KeyDown="batchModeRadioButton_KeyDown"/>
+        <Label x:Name="commentLabel" Content="Comment:" HorizontalAlignment="Left" Margin="245,0,0,114" VerticalAlignment="Bottom" Width="115" Height="40" FontSize="21.333" FontWeight="Bold" RenderTransformOrigin="0.348,0.6"/>
+        <TextBox x:Name="commentTextBox" Margin="365,0,27,114" MaxLength="31" MaxLines="1" Height="40" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="14.667" VerticalContentAlignment="Center" TabIndex="9001" IsTabStop="False">
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
         </TextBox>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="52" Margin="15,120,0,0" VerticalAlignment="Top" Width="655"/>
-        <Label x:Name="label" Content="Press F1 for Help" HorizontalAlignment="Left" Margin="10,0,0,10" Width="117" FontWeight="Bold" Height="26" VerticalAlignment="Bottom"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="52" Margin="10,160,0,0" VerticalAlignment="Top" Width="655"/>
+        <Menu x:Name="optionsMenu" HorizontalAlignment="Left" Height="25" Margin="90,10,0,0" VerticalAlignment="Top" Width="60">
+            <MenuItem x:Name="optMenuMain" Header="_Options" Width="60" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" IsTabStop="False" Background="#FFFFFCC1">
+                <MenuItem.Effect>
+                    <DropShadowEffect/>
+                </MenuItem.Effect>
+                <MenuItem x:Name="changePrinterItem" Header="Change _Printer" HorizontalAlignment="Left" Width="170" Margin="0,0,-25,0" Click="changePrinterItem_Click"/>
+                <MenuItem x:Name="editPrefixOption" Header="_Edit Customer Prefixes" HorizontalAlignment="Left" Width="210" Margin="0,0,-40,0" Click="editPrefixOption_Click"/>
+            </MenuItem>
+        </Menu>
+        <Menu x:Name="fileMenu" HorizontalAlignment="Left" Height="25" Margin="20,10,0,0" VerticalAlignment="Top" Width="60" Background="{x:Null}">
+            <MenuItem x:Name="fileMainMenu" Header="_File" Height="25" Width="60" IsTabStop="False" Background="#FFFFFCC1">
+                <MenuItem.Effect>
+                    <DropShadowEffect/>
+                </MenuItem.Effect>
+                <MenuItem x:Name="loadSetupSheetsItem" Header="_Load New Setup Sheets" HorizontalAlignment="Left" Width="215" Margin="0,0,-45,0" Click="loadSetupSheetsItem_Click"/>
+                <Separator HorizontalAlignment="Left" Width="170"/>
+                <MenuItem x:Name="exitMenuItem" Header="E_xit" HorizontalAlignment="Left" Width="170" Click="exitMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="25" Margin="160,10,0,0" VerticalAlignment="Top" Width="60">
+            <MenuItem x:Name="helpMainMenu" Header="_Help" Height="25" Width="60" Background="#FFFFFCC1" IsTabStop="False">
+                <MenuItem.Effect>
+                    <DropShadowEffect/>
+                </MenuItem.Effect>
+                <MenuItem x:Name="helpAboutItem" Header="_About" HorizontalAlignment="Left" Width="145" Click="helpAboutItem_Click"/>
+                <MenuItem x:Name="userGuideMenuItem" Header="_User Guide" HorizontalAlignment="Left" Width="155" Click="userGuideMenuItem_Click" Margin="0,0,-10,0"/>
+            </MenuItem>
+        </Menu>
+        <Label x:Name="usingPrinterLabel" Content="Using printer:" HorizontalAlignment="Left" Margin="250,0,0,10" Width="85" Height="35" VerticalAlignment="Bottom"/>
+        <Label x:Name="printerLabel" HorizontalAlignment="Left" Margin="340,0,0,10" Width="150" Height="35" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>
