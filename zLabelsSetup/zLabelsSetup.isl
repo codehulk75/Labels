@@ -1890,11 +1890,11 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>help.txt2</td><td>ISX_DEFAULTCOMPONENT2</td><td>help.txt</td><td>0</td><td/><td/><td/><td>1</td><td>D:\zLabels\help.txt</td><td>1</td><td/></row>
-		<row><td>prefixes.ini2</td><td>ISX_DEFAULTCOMPONENT2</td><td>Prefixes.ini</td><td>0</td><td/><td/><td/><td>1</td><td>D:\zLabels\Prefixes.ini</td><td>1</td><td/></row>
-		<row><td>printer_addr.txt2</td><td>ISX_DEFAULTCOMPONENT2</td><td>PRINTE~1.TXT|printer_addr.txt</td><td>0</td><td/><td/><td/><td>1</td><td>D:\zLabels\printer_addr.txt</td><td>1</td><td/></row>
+		<row><td>prefixes.ini</td><td>ISX_DEFAULTCOMPONENT2</td><td>Prefixes.ini</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\thomsc\Documents\Visual Studio 2015\Projects\ZebraSender\ZebraSender\bin\Release\Prefixes.ini</td><td>1</td><td/></row>
+		<row><td>printer_addr.txt</td><td>ISX_DEFAULTCOMPONENT2</td><td>PRINTE~1.TXT|printer_addr.txt</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\thomsc\Documents\Visual Studio 2015\Projects\ZebraSender\ZebraSender\bin\Release\printer_addr.txt</td><td>1</td><td/></row>
 		<row><td>zebrasender.primary_output</td><td>ZebraSender.Primary_output</td><td>ZebraSender.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ZebraSender&gt;|Built</td><td>3</td><td/></row>
 		<row><td>zextract.exe</td><td>zExtract.exe</td><td>zExtract.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\thomsc\Documents\Visual Studio 2015\Projects\ZebraSender\ZebraSender\bin\Release\zExtract.exe</td><td>1</td><td/></row>
+		<row><td>zlabels_user_guide.xps</td><td>ISX_DEFAULTCOMPONENT2</td><td>ZLABEL~1.XPS|zLabels User Guide.xps</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\thomsc\Documents\Visual Studio 2015\Projects\ZebraSender\ZebraSender\bin\Release\zLabels User Guide.xps</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2629,7 +2629,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Benchmark Electronics Nashua-Craig Thomson</td><td>0</td><td/><td>-1834696568</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Benchmark Electronics Nashua-Craig Thomson</td><td>0</td><td/><td>-1021000275</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>1570976687</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1570976687</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1570972623</td></row>
@@ -3732,9 +3732,12 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1570976687</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1570976687</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>1570976687</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.BenchmarkElectronicsNashua-CraigThomson.com</td><td>0</td><td/><td>-1834696568</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Benchmark Electronics Nashua-Craig Thomson</td><td>0</td><td/><td>-1834696568</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.BenchmarkElectronicsNashua-CraigThomson.com</td><td>0</td><td/><td>-1021000275</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Benchmark Electronics Nashua-Craig Thomson</td><td>0</td><td/><td>-1021000275</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>zLabels</td><td>0</td><td/><td>1570968623</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>Craig Thomson</td><td>0</td><td/><td>-1020996019</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>craig.thomson@bench.com</td><td>0</td><td/><td>-1020989875</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>x7147</td><td>0</td><td/><td>-1021038995</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>1570976687</td></row>
 	</table>
 
@@ -4287,6 +4290,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
 		<row><td>ALLUSERS</td><td>1</td><td/></row>
+		<row><td>ARPCONTACT</td><td>##ID_STRING4##</td><td/></row>
+		<row><td>ARPHELPLINK</td><td>##ID_STRING5##</td><td/></row>
+		<row><td>ARPHELPTELEPHONE</td><td>##ID_STRING6##</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>

@@ -35,7 +35,8 @@ namespace ZebraSender
         private Dictionary<string,string> availablePrinters = new Dictionary<string, string>();
         private List<string> m_Prefixes;
         private List<string> m_IgnoredPrefixes = new List<string>();
-        
+        private Dictionary<string, List<string>> pnLocList = new Dictionary<string, List<string>>();
+              
 
         public MainWindow()
         {
@@ -220,6 +221,7 @@ namespace ZebraSender
             commentTextBox.Clear();
             woTextBox.Clear();
             ttNames.Clear();
+            pnLocList.Clear();
             suFiles = new List<string>(fileList);
         }
         private string PopulateVars(string setupSheetFile)
@@ -536,13 +538,9 @@ namespace ZebraSender
                         }
                         if (location.Count > 1)
                         {
-                            StringBuilder sb = new StringBuilder();
-                            foreach(string s in location)
-                            {
-                                sb.Append(s + "\n");
-                            }
-                            string allLocations = sb.ToString();
-                            MessageBox.Show("Warning!\nThis part is in different locations on different assemblies:\n\n" + allLocations + "\n\nUsing 1st location found on 1st pass.",
+                            string allLocations = BuildLocationString(pnum, "SMT 1");
+                            MessageBox.Show("Warning!\nThis part is in different 1st pass locations on different assemblies:\n\n" + allLocations + "\n\nUsing 1st location found on 1st pass."
+                                +" You can change it yourself if you want.",
                                 "CF Mode 1st Pass Family Matching Error");
                         }
                     }
@@ -556,7 +554,9 @@ namespace ZebraSender
                         }
                         if (location.Count > 1)
                         {
-                            MessageBox.Show("Warning!\nThis part is in different locations on different assemblies.\nUsing 1st location found on 2nd pass.",
+                            string allLocations = BuildLocationString(pnum, "SMT 2");
+                            MessageBox.Show("Warning!\nThis part is in different 2nd pass locations on different assemblies:\n\n" + allLocations + "\n\nUsing 1st location found on 2nd pass."
+                                + " You can change it yourself if you want.",
                                 "CF Mode 2nd Pass Family Matching Error");
                         }
                     }
@@ -570,8 +570,10 @@ namespace ZebraSender
                         }
                         if (location.Count > 1)
                         {
-                            MessageBox.Show("Warning!\nBatch Mode is checked but part is in different locations.\nUsing 1st location found.",
-                                "Batch Mode Matching Error");
+                            string allLocations = BuildLocationString(pnum);
+                            MessageBox.Show("Warning!\nBatch Mode is checked but part is in different locations on different assemblies:\n\n" + allLocations + "\n\nUsing 1st location found."
+                                + " You can change it yourself if you want.",
+                                "Batch Mode Family Matching Error");
                         }
                     }
 
@@ -584,7 +586,23 @@ namespace ZebraSender
                 }
             }
         }
-
+        
+        private string BuildLocationString(string partNumber, string passName=null)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(partNumber + ": ");
+            sb.Append("(Assembly - Pass - Machine/Slot)\n");
+            foreach (string s in pnLocList[partNumber])
+            {
+                string[] pndata = s.Split(';');
+                if(string.IsNullOrEmpty(passName))
+                    sb.Append("\t" + pndata[0] + "\t" + pndata[1] + "\t" + pndata[2] + "/" + pndata[3] + "\n");       
+                else if (pndata[1].Equals(passName))
+                    sb.Append("\t" + pndata[0] + "\t" + pndata[1] + "\t" + pndata[2] + "/" + pndata[3] + "\n");                   
+            }
+            string allLocations = sb.ToString();
+            return allLocations;
+        }
         private void LocationNotFound(string pass)
         {
             MessageBox.Show("Location not found on " + pass + " Pass:(\nEnter machine location by hand", "Oops!!");
@@ -641,6 +659,7 @@ namespace ZebraSender
                             {
                                 line = rdStream.ReadLine();
                                 lines.Add(line);
+                                AddToLocationList(assytext, line);
                             }
                             lines.RemoveAt(lines.Count - 1);
                         }
@@ -655,6 +674,54 @@ namespace ZebraSender
                 MessageBox.Show("ReadParts()\n" + ex.Message);
             }
             
+        }
+
+        private void AddToLocationList(string assembly, string partdata)
+        {
+            string smtOne = "SMT 1";
+            string smtTwo = "SMT 2";
+            string[] sep = new string[] { ";", " => " };
+            string[] datafields = partdata.Split(sep, StringSplitOptions.None);
+            if (datafields.Length == 0)
+            {
+                MessageBox.Show("Couldn't add locations to master list", "Parse Error -- AddToLocationList()");
+                return;
+            }
+            string pn = datafields[0];
+            for (int i = 0; i < datafields.Length; i++)
+            {
+                if (datafields[i] == smtOne)
+                {
+                    string machine = FormatMachine(datafields[i + 1]);
+                    string slot = datafields[i + 2];
+                    if (pnLocList.ContainsKey(pn))
+                    {
+                        pnLocList[pn].Add(assembly + ";" + smtOne + ";" + machine + ";" + slot);
+                    }
+                    else
+                    {
+                        List<string> templist = new List<string>();
+                        templist.Add(assembly + ";" + smtOne + ";" + machine + ";" + slot);
+                        pnLocList.Add(pn, templist);
+                    }
+                                    
+                }
+                else if(datafields[i] == smtTwo)
+                {
+                    string machine = FormatMachine(datafields[i + 1]);
+                    string slot = datafields[i + 2];
+                    if (pnLocList.ContainsKey(pn))
+                    {
+                        pnLocList[pn].Add(assembly + ";" + smtTwo + ";" + machine + ";" + slot);
+                    }
+                    else
+                    {
+                        List<string> templist = new List<string>();
+                        templist.Add(assembly + ";" + smtTwo + ";" + machine + ";" + slot);
+                        pnLocList.Add(pn, templist);
+                    }
+                }
+            }     
         }
 
         private string StripPrefix(string part)
@@ -742,6 +809,9 @@ namespace ZebraSender
                     break;
                 case "GI142":
                     m = "GI14-2";
+                    break;
+                case "GC60":
+                    m = "GC60-1";
                     break;
                 default:
                     break;

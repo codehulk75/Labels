@@ -11,15 +11,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Xps.Packaging;
+using System.Text.RegularExpressions;
 
 namespace ZebraSender
 {
     /// <summary>
     /// Interaction logic for HelpWindow.xaml
     /// </summary>
-    public partial class HelpWindow : Window
+    public partial class HelpWindow : NavigationWindow
     {
         public HelpWindow()
         {
@@ -27,12 +29,13 @@ namespace ZebraSender
             try
             {
                 XpsDocument doc = new XpsDocument("zLabels User Guide.xps", FileAccess.Read);
-                documentViewer.Document = doc.GetFixedDocumentSequence();
+                documentViewer.Document = doc.GetFixedDocumentSequence();                 
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Couldn't open help document.\n" + ex.Message, "Even Help Can't Help");
-            }           
+            }
         }
+
     }
 }
