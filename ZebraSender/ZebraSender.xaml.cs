@@ -260,7 +260,7 @@ namespace ZebraSender
         {
             ProcessStartInfo psInfo = new ProcessStartInfo();
             psInfo.FileName = perlExtractScript;
-            psInfo.Arguments = "\"" + setupSheetFile + "\"";
+            psInfo.Arguments = "\\\"" + setupSheetFile + "\\\"";
             psInfo.ErrorDialog = true;
             psInfo.CreateNoWindow = true;
             psInfo.UseShellExecute = false;
@@ -641,9 +641,11 @@ namespace ZebraSender
             int n = 0;
             try
             {
+                assyNames.Sort((x, y) => x.Length.CompareTo(y.Length));
+                assyNames.Reverse();
                 foreach (string assembly in assyNames)
                 {
-                    string[] files = Directory.GetFiles(dir, (assyNames[n] + "*.txt"));
+                    string[] files = Directory.GetFiles(dir, (assyNames[n] + "*.txt"));                   
                     string procdFil = files[0];
                     assytext = GetAssemblyName(procdFil);
                     if (!string.IsNullOrEmpty(procdFil))
@@ -688,40 +690,47 @@ namespace ZebraSender
                 return;
             }
             string pn = datafields[0];
-            for (int i = 0; i < datafields.Length; i++)
+            try
             {
-                if (datafields[i] == smtOne)
+                for (int i = 0; i < datafields.Length; i++)
                 {
-                    string machine = FormatMachine(datafields[i + 1]);
-                    string slot = datafields[i + 2];
-                    if (pnLocList.ContainsKey(pn))
+                    if (datafields[i] == smtOne)
                     {
-                        pnLocList[pn].Add(assembly + ";" + smtOne + ";" + machine + ";" + slot);
+                        string machine = FormatMachine(datafields[i + 1]);
+                        string slot = datafields[i + 2];
+                        if (pnLocList.ContainsKey(pn))
+                        {
+                            pnLocList[pn].Add(assembly + ";" + smtOne + ";" + machine + ";" + slot);
+                        }
+                        else
+                        {
+                            List<string> templist = new List<string>();
+                            templist.Add(assembly + ";" + smtOne + ";" + machine + ";" + slot);
+                            pnLocList.Add(pn, templist);
+                        }
+
                     }
-                    else
+                    else if (datafields[i] == smtTwo)
                     {
-                        List<string> templist = new List<string>();
-                        templist.Add(assembly + ";" + smtOne + ";" + machine + ";" + slot);
-                        pnLocList.Add(pn, templist);
+                        string machine = FormatMachine(datafields[i + 1]);
+                        string slot = datafields[i + 2];
+                        if (pnLocList.ContainsKey(pn))
+                        {
+                            pnLocList[pn].Add(assembly + ";" + smtTwo + ";" + machine + ";" + slot);
+                        }
+                        else
+                        {
+                            List<string> templist = new List<string>();
+                            templist.Add(assembly + ";" + smtTwo + ";" + machine + ";" + slot);
+                            pnLocList.Add(pn, templist);
+                        }
                     }
-                                    
                 }
-                else if(datafields[i] == smtTwo)
-                {
-                    string machine = FormatMachine(datafields[i + 1]);
-                    string slot = datafields[i + 2];
-                    if (pnLocList.ContainsKey(pn))
-                    {
-                        pnLocList[pn].Add(assembly + ";" + smtTwo + ";" + machine + ";" + slot);
-                    }
-                    else
-                    {
-                        List<string> templist = new List<string>();
-                        templist.Add(assembly + ";" + smtTwo + ";" + machine + ";" + slot);
-                        pnLocList.Add(pn, templist);
-                    }
-                }
-            }     
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("AddToLocationsList()\n"+ex.Message);
+            }   
         }
 
         private string StripPrefix(string part)
